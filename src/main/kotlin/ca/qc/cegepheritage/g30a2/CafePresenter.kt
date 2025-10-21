@@ -1,11 +1,18 @@
 package ca.qc.cegepheritage.g30a2
 
+import java.awt.Menu
 import kotlin.text.clear
 
 class CafePresenter (private val model: CafeModel, private val view: CafeDisplay) {
+
+    val foodItems = Menu.Food.values().toList()
+    val drinkItems = Menu.Drink.values().toList()
+
     fun start() {
         view.renderQueue(model.orderQueue())
         view.updateCount(model.count())
+        populateDropdown(foodItems, view.food)
+        populateDropdown(drinkItems, view.drinks)
     }
     fun onAddOrder(order: Order) {
         val added = model.addOrder(order)

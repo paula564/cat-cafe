@@ -1,5 +1,8 @@
 package ca.qc.cegepheritage.g30a2
 
+import javafx.scene.control.ComboBox
+import java.awt.Menu
+import java.util.Collections.emptyList
 import java.util.LinkedList
 
 class CafeModel (initialOrders: List<Order> = emptyList()) {
@@ -25,6 +28,12 @@ class CafeModel (initialOrders: List<Order> = emptyList()) {
         } else {
             return "No orders left to serve!"
         }
+    }
+
+    fun <T> populateDropdown (items : List<T>, dropdown: ComboBox<T>) {
+        dropdown.items.clear()
+        dropdown.items.addAll(items)
+        dropdown.value = items.first()
     }
 
     fun closeRegister() {

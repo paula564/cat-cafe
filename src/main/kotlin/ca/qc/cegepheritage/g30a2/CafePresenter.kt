@@ -1,28 +1,31 @@
 package ca.qc.cegepheritage.g30a2
 
-import java.awt.Menu
+//import java.awt.Menu
 import kotlin.text.clear
 
 class CafePresenter (private val model: CafeModel, private val view: CafeDisplay) {
 
-    val foodItems = Menu.Food.values().toList()
-    val drinkItems = Menu.Drink.values().toList()
+    val foodItems = Food.entries
+    val drinkItems = Drink.entries
 
     fun start() {
         view.renderQueue(model.orderQueue())
         view.updateCount(model.count())
-        populateDropdown(foodItems, view.food)
-        populateDropdown(drinkItems, view.drinks)
+        model.populateDropdown(foodItems, view.food)
+        model.populateDropdown(drinkItems, view.drinks)
+        view.showNextInLine(model.nextInLine(), model.orderQueue()) //maybe?? idkkk
     }
     fun onAddOrder(order: Order) {
-        val added = model.addOrder(order)
-        view.showAddedOrder(order, added)
-        view.renderQueue(model.orderQueue())
-        view.updateCount(model.count())
-
-        if (!added) {
+        val addedOrder = model.addOrder(order)
+        if (addedOrder != null) {
+            view.showAddedOrder(addedOrder, true)
+            view.renderQueue(model.orderQueue())
+            view.updateCount(model.count())
+            view.showInfo("Order added!")
+        } else {
             view.showInfo("That person is already in line!")
         }
+        view.showNextInLine(model.nextInLine(), model.orderQueue())
     }
 
     fun onServe() {
@@ -30,6 +33,8 @@ class CafePresenter (private val model: CafeModel, private val view: CafeDisplay
         view.showServedOrder(served)
         view.renderQueue(model.orderQueue())
         view.updateCount(model.count())
+        view.showNextInLine(model.nextInLine(), model.orderQueue())
+
     }
 
     fun onCloseRegister() {
@@ -38,4 +43,32 @@ class CafePresenter (private val model: CafeModel, private val view: CafeDisplay
         view.updateCount(model.count())
         view.showInfo("No orders waiting")
     }
+
+    fun onCancel(id: Int) {
+        val removed = model.cancel(id)
+        if (removed != null) {
+            view.showInfo("Cancelled order for ${removed.customerName}")
+            view.renderQueue(model.orderQueue())
+            view.updateCount(model.count())
+        } else {
+            view.showInfo("No order found with ID $id")
+        }
+    }
+
+    fun onPrioritize(id: Int) {
+        val prioritized = model.prioritize(id)
+        if (prioritized != null) {
+            view.showInfo("Prioritized order for ${prioritized.customerName}")
+            view.renderQueue(model.orderQueue())
+            view.updateCount(model.count())
+        } else {
+            view.showInfo("No order found with ID $id")
+        }
+        view.showNextInLine(model.nextInLine(), model.orderQueue())
+    }
 }
+
+
+
+
+//add so next order is visible

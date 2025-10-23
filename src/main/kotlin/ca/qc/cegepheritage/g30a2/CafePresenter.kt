@@ -13,7 +13,7 @@ class CafePresenter (private val model: CafeModel, private val view: CafeDisplay
         view.updateCount(model.count())
         model.populateDropdown(foodItems, view.food)
         model.populateDropdown(drinkItems, view.drinks)
-        view.showNextInLine(model.nextInLine(), model.orderQueue()) //maybe?? idkkk
+        view.showNextInLine(model.nextInLine()) //maybe?? idkkk
     }
     fun onAddOrder(order: Order) {
         val addedOrder = model.addOrder(order)
@@ -25,7 +25,7 @@ class CafePresenter (private val model: CafeModel, private val view: CafeDisplay
         } else {
             view.showInfo("That person is already in line!")
         }
-        view.showNextInLine(model.nextInLine(), model.orderQueue())
+        view.showNextInLine(model.nextInLine())
     }
 
     fun onServe() {
@@ -33,7 +33,7 @@ class CafePresenter (private val model: CafeModel, private val view: CafeDisplay
         view.showServedOrder(served)
         view.renderQueue(model.orderQueue())
         view.updateCount(model.count())
-        view.showNextInLine(model.nextInLine(), model.orderQueue())
+        view.showNextInLine(model.nextInLine())
 
     }
 
@@ -42,6 +42,7 @@ class CafePresenter (private val model: CafeModel, private val view: CafeDisplay
         view.renderQueue(model.orderQueue())
         view.updateCount(model.count())
         view.showInfo("No orders waiting")
+        view.showNextInLine(model.nextInLine())
     }
 
     fun onCancel(id: Int) {
@@ -53,6 +54,7 @@ class CafePresenter (private val model: CafeModel, private val view: CafeDisplay
         } else {
             view.showInfo("No order found with ID $id")
         }
+        view.showNextInLine(model.nextInLine())
     }
 
     fun onPrioritize(id: Int) {
@@ -64,7 +66,7 @@ class CafePresenter (private val model: CafeModel, private val view: CafeDisplay
         } else {
             view.showInfo("No order found with ID $id")
         }
-        view.showNextInLine(model.nextInLine(), model.orderQueue())
+        view.showNextInLine(model.nextInLine())
     }
 }
 

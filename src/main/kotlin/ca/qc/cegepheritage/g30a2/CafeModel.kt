@@ -50,15 +50,15 @@ class CafeModel (initialOrders: List<Order> = emptyList()) {
     fun <T> populateDropdown (items : List<T>, dropdown: ComboBox<T>) {
         dropdown.items.clear()
         dropdown.items.addAll(items)
-        dropdown.value = null
+        dropdown.items.addFirst(null)
     }
 
     fun closeRegister() {
         list.clear()
     }
 
-    fun nextInLine() : Order {
-        return list.first()
+    fun nextInLine() : Order? {
+        return list.firstOrNull()
     }
 
     fun orderQueue(): List<Order> = list.toList()

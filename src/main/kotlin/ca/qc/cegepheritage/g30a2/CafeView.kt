@@ -143,11 +143,11 @@ class CafeView : CafeDisplay {
 
     }
 
-   override fun showNextInLine(order: Order?, orderQueue: List<Order>) {
-        nextOrderLabel.text = if (order != null && orderQueue.isNotEmpty()) {
+   override fun showNextInLine(order: Order?) {
+        nextOrderLabel.text = if (order != null) {
             "Next in line: ${order.customerName}"
         } else {
-            "Next in line: none"
+            "No one is in line!"
         }
     }
 

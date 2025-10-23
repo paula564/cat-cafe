@@ -7,7 +7,7 @@ import javafx.stage.Stage
 class CafeApplication : Application() {
     companion object {
         private const val WINDOW_WIDTH = 600.0
-        private const val WINDOW_HEIGHT = 400.0
+        private const val WINDOW_HEIGHT = 500.0
     }
 
     override fun start(primaryStage: Stage) {

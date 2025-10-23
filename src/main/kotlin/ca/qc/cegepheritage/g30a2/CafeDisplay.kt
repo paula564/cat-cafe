@@ -9,6 +9,6 @@ interface CafeDisplay {
     fun updateCount(count: Int)
     fun showAddedOrder(order: Order, wasAdded: Boolean)
     fun showServedOrder(order: Order?)
-    fun showNextInLine(order: Order?, orderQueue: List<Order>)
+    fun showNextInLine(order: Order?)
     fun showInfo(message: String)
 }

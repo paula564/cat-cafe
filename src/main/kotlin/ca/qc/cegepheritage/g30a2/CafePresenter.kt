@@ -1,19 +1,21 @@
 package ca.qc.cegepheritage.g30a2
 
 //import java.awt.Menu
+import javafx.collections.ObservableList
 import kotlin.text.clear
 
 class CafePresenter (private val model: CafeModel, private val view: CafeDisplay) {
 
-    val foodItems = Food.entries
-    val drinkItems = Drink.entries
-
     fun start() {
+        val foodItems = Food.entries.toList()
+        val drinkItems = Drink.entries.toList()
         view.renderQueue(model.orderQueue())
         view.updateCount(model.count())
-        model.populateDropdown(foodItems, view.food)
-        model.populateDropdown(drinkItems, view.drinks)
-        view.showNextInLine(model.nextInLine()) //maybe?? idkkk
+        view.food?.items = model.populateDropdown(foodItems)
+        view.food?.items?.addFirst(null)
+        view.drinks?.items = model.populateDropdown(drinkItems)
+        view.drinks?.items?.addFirst(null)
+        view.showNextInLine(model.nextInLine())
     }
     fun onAddOrder(order: Order) {
         val addedOrder = model.addOrder(order)

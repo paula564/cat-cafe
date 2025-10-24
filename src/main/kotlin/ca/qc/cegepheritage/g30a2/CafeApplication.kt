@@ -30,4 +30,3 @@ fun main() {
     Application.launch(CafeApplication::class.java)
 }
 
-//need to fix next person in line display

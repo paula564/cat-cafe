@@ -11,8 +11,7 @@ import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.scene.paint.Color
 import javafx.scene.text.Font
-
-
+import javafx.scene.text.FontWeight
 
 
 class CafeView : CafeDisplay {
@@ -23,31 +22,28 @@ class CafeView : CafeDisplay {
     val name: TextField = TextField().apply {
         promptText = "Customer name"
         alignment = Pos.CENTER
-        style = "-fx-background-color: white; -fx-text-fill: #D3D3D3; -fx-border-color: #FFDBBB; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-pref-width: 160;"
+        style = "-fx-background-color: white; -fx-text-fill: #D3D3D3; -fx-border-color: #53131E; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-pref-width: 160px;"
     }
 
     val idField = TextField().apply {
         promptText = "Order ID"
-        style = "-fx-background-color: white; -fx-text-fill: #D3D3D3; -fx-border-color: #FFDBBB; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-max-width: 120;"
+        style = "-fx-background-color: white; -fx-text-fill: #D3D3D3; -fx-border-color: #53131E; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-max-width: 120px;"
     }
 
-
-    override var drinks: ComboBox<Drink> = ComboBox<Drink>().apply {
+    override var drinks: ComboBox<Drink>? = ComboBox<Drink>().apply {
         promptText = "Select drink"
-        style = "-fx-background-color: white; -fx-text-fill: #D3D3D3; -fx-border-color: #FFDBBB; -fx-background-radius: 10; -fx-border-radius: 10; -fx-max-width: 150px; -fx-max-height: 100px;"
+        style = "-fx-background-color: white; -fx-text-fill: #D3D3D3; -fx-border-color: #53131E; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-max-width: 150px; -fx-max-height: 100px;"
     }
-    override var food: ComboBox<Food> = ComboBox<Food>().apply {
+    override var food: ComboBox<Food>? = ComboBox<Food>().apply {
         promptText = "Select food"
-        style = "-fx-background-color: white; -fx-text-fill: #D3D3D3; -fx-border-color: #FFDBBB; -fx-background-radius:10; -fx-border-radius: 10; -fx-max-width: 150px; -fx-max-height: 100px;"
+        style = "-fx-background-color: white; -fx-text-fill: #D3D3D3; -fx-border-color: #53131E; -fx-background-radius:10px; -fx-border-radius: 10px; -fx-max-width: 150px; -fx-max-height: 100px;"
     }
     val queueDisplay = VBox(8.0).apply {
         alignment = Pos.TOP_CENTER
     }
     val countLabel = Label("Customers waiting: 0")
 
-
     val infoLabel = Label("").apply {
-        textFill = Color.DARKRED
         font = Font.font(14.0)
     }
 
@@ -57,9 +53,9 @@ class CafeView : CafeDisplay {
             setOnAction {
 
                 val order = when {
-                    food.getValue() !== null && drinks.getValue() !== null -> Order(0, name.text, food = food.getValue()!!, drink = drinks.getValue()!!)
-                    food.getValue() !== null -> Order(0, name.text, food = food.getValue()!!)
-                    drinks.getValue() !== null -> Order(0, name.text, drink = drinks.getValue()!!)
+                    food?.getValue() !== null && drinks?.getValue() !== null -> Order(0, name.text, food = food?.getValue()!!, drink = drinks?.getValue()!!)
+                    food?.getValue() !== null -> Order(0, name.text, food = food?.getValue()!!)
+                    drinks?.getValue() !== null -> Order(0, name.text, drink = drinks?.getValue()!!)
                     else -> Order(0, name.text)
                 }
                 if (order.food !== null || order.drink !== null) {
@@ -107,7 +103,7 @@ class CafeView : CafeDisplay {
     init {
 
         val title = Label("Kat's Cat Cafe!").apply {
-            font = Font.font("Arial", 28.0)
+            font = Font.font("Arial", FontWeight.BOLD,  28.0)
         }
 
         val queueTitle = Label("Queue").apply {
@@ -122,12 +118,12 @@ class CafeView : CafeDisplay {
 
         val buttonsBox = VBox(10.0, serveButton, idLabel, idField, cancelButton, prioritizeButton).apply {
             alignment = Pos.CENTER
-            style = "-fx-background-color: #FFD9C0; -fx-background-radius: 15; -fx-padding: 15; -fx-min-width: 230;"
+            style = "-fx-background-color: #FEE1C7; -fx-background-radius: 15px; -fx-padding: 15px; -fx-min-width: 230px;"
         }
 
         val queueBox = VBox(10.0, queueTitle, queueDisplay).apply {
             alignment = Pos.TOP_CENTER
-            style = "-fx-background-color: #FFD9C0; -fx-background-radius: 15; -fx-padding: 15; -fx-min-width: 300;"
+            style = "-fx-background-color: #FEE1C7; -fx-background-radius: 15px; -fx-padding: 15px; -fx-min-width: 300px;"
         }
 
         val centralDisplay = HBox(30.0, buttonsBox, queueBox).apply {
@@ -137,7 +133,7 @@ class CafeView : CafeDisplay {
 
         root = VBox(15.0, title, clearButton, addOrderRow, centralDisplay, countLabel, nextOrderLabel, infoLabel).apply {
             alignment = Pos.CENTER
-            style = "-fx-background-color: #FFE3E2;"
+            style = "-fx-background-color: #9999C3;"
             padding = Insets(25.0)
         }
 
@@ -165,7 +161,7 @@ class CafeView : CafeDisplay {
                 }
             }.apply {
                 style =
-                    "-fx-background-color: white; -fx-padding: 10; -fx-border-color: #FFDBBB; -fx-border-radius: 10; -fx-background-radius: 10;"
+                    "-fx-background-color: white; -fx-padding: 10px; -fx-border-color: #53131E; -fx-border-radius: 10px; -fx-background-radius: 10px;"
             }
             queueDisplay.children.add(label)
         }
@@ -178,26 +174,21 @@ class CafeView : CafeDisplay {
 
         override fun showAddedOrder(order: Order, wasAdded: Boolean) {
             if (wasAdded) {
-                infoLabel.textFill = Color.DARKGREEN
                 infoLabel.text = "Added order for ${order.customerName}"
             } else {
-                infoLabel.textFill = Color.DARKRED
                 infoLabel.text = "That person is already in line!"
             }
         }
 
     override fun showServedOrder(order: Order?) {
             if (order != null) {
-                infoLabel.textFill = Color.DARKBLUE
                 infoLabel.text = "Served ${order.customerName}!"
             } else {
-                infoLabel.textFill = Color.DARKRED
                 infoLabel.text = "No customers to serve!"
             }
         }
 
         override fun showInfo(message: String) {
-            infoLabel.textFill = Color.DARKRED
             infoLabel.text = message
         }
     }

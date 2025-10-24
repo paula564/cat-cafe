@@ -1,6 +1,7 @@
 package ca.qc.cegepheritage.g30a2
 
-import javafx.scene.control.ComboBox
+import javafx.collections.FXCollections.observableList
+import javafx.collections.ObservableList
 import java.util.Collections.emptyList
 import java.util.LinkedList
 
@@ -16,6 +17,9 @@ class CafeModel (initialOrders: List<Order> = emptyList()) {
         if (orderQueue().any { it.customerName == order.customerName }) {
             return null
         }
+//        if (order.customerName.isBlank() || (order.food == null && order.drink == null)) {
+//            return null
+//        } //ask kat about this
         val newOrder = order.copy(id = nextId++)
         list.add(newOrder)
         return newOrder
@@ -47,10 +51,8 @@ class CafeModel (initialOrders: List<Order> = emptyList()) {
         return order
     }
 
-    fun <T> populateDropdown (items : List<T>, dropdown: ComboBox<T>) {
-        dropdown.items.clear()
-        dropdown.items.addAll(items)
-        dropdown.items.addFirst(null)
+    fun <T> populateDropdown (items : List<T>) : ObservableList<T> {
+        return observableList(items.toList())
     }
 
     fun closeRegister() {

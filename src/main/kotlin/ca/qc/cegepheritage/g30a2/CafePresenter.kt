@@ -32,11 +32,16 @@ class CafePresenter (private val model: CafeModel, private val view: CafeDisplay
 
     fun onServe() {
         val served = model.serve()
-        view.showServedOrder(served)
-        view.renderQueue(model.orderQueue())
-        view.updateCount(model.count())
+        if (served != null) {
+            view.showServedOrder(served)
+            view.renderQueue(model.orderQueue())
+            view.updateCount(model.count())
+            view.showNextInLine(model.nextInLine())
+            view.showInfo("Served ${served.customerName}!")
+        } else {
+            view.showInfo("No customers to serve!")
+        }
         view.showNextInLine(model.nextInLine())
-
     }
 
     fun onCloseRegister() {

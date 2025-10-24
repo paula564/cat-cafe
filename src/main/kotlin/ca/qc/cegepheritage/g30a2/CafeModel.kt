@@ -53,7 +53,7 @@ class CafeModel (initialOrders: List<Order> = emptyList()) {
 
     fun <T> populateDropdown (items : List<T>) : ObservableList<T> {
         return observableList(items.toList())
-    }
+    } //rename function
 
     fun closeRegister() {
         list.clear()

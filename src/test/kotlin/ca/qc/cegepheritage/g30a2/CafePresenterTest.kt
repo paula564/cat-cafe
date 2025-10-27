@@ -4,7 +4,6 @@ import javafx.scene.control.ComboBox
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import java.util.Objects
 import kotlin.collections.any
 import kotlin.text.contains
 

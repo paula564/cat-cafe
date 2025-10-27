@@ -80,4 +80,3 @@ class CafePresenter (private val model: CafeModel, private val view: CafeDisplay
 
 
 
-//add so next order is visible

@@ -4,6 +4,15 @@ import org.junit.jupiter.api.Test
 
 
 class CafeModelTest {
+
+    @Test
+    fun testInitialOrdersAreAdded() {
+        val orders = listOf(Order(1, "Paula"), Order(2, "Stella"))
+        val model = CafeModel(orders)
+        assertEquals(2, model.count())
+        assertEquals(listOf(orders[0].copy(id= 1), orders[1].copy(id= 2)), model.orderQueue())
+    }
+
     @Test
     fun testAddOrderCustomerAlreadyOrderedReturnsNullAndDoesNotAddCustomer() {
         val model = CafeModel()
@@ -38,6 +47,31 @@ class CafeModelTest {
         assertEquals(order3, model.addOrder(order3), "addOrder() should return order3.")
         assertEquals(listOf(order1, order2, order3), model.orderQueue())
     }
+
+    @Test
+    fun testAddCustomerEmptyCustomerDoesNotAddNullCustomer() {
+        val model = CafeModel()
+        val emptyNameOrder = Order(1, "")
+
+        val result = model.addOrder(emptyNameOrder)
+
+        assertEquals(null, result, "addOrder() should return null")
+        assertEquals(emptyList<Order>(), model.orderQueue())
+    }
+
+    @Test
+    fun testAddOrderIncrementsId() {
+        val model = CafeModel()
+        val order1 = Order(0, "Paula")
+        val order2 = Order(0, "Stella")
+
+        val added1 = model.addOrder(order1)
+        val added2 = model.addOrder(order2)
+
+        assertEquals(1, added1?.id)
+        assertEquals(2, added2?.id)
+    }
+
 
     @Test
     fun testServeRemoveCustomerFromEmptyListReturnsNullAndDoesNotRemoveCustomer() {
@@ -147,7 +181,7 @@ class CafeModelTest {
     }
 
     @Test
-    fun testPopulateDropdownReturnsDropdownData() {
+    fun testRetrieveDropdownDataReturnsDropdownData() {
         val model = CafeModel()
         val items = listOf("Coffee", "Chai", "Matcha")
 
@@ -231,18 +265,5 @@ class CafeModelTest {
 
         assertEquals(3, model.count(), "Count should be 3")
     }
-
-
-
-
-
-
-
-
-
-//    @Test
-//    fun testAddCustomerWithOneItemOrderedReturnsOrderAndCorrectlyAddsCustomer() {
-//
-//    }
 
 }

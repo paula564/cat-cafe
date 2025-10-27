@@ -17,9 +17,9 @@ class CafeModel (initialOrders: List<Order> = emptyList()) {
         if (orderQueue().any { it.customerName == order.customerName }) {
             return null
         }
-//        if (order.customerName.isBlank() || (order.food == null && order.drink == null)) {
-//            return null
-//        } //ask kat about this
+        if (order.customerName.isBlank()) {
+            return null
+        }
         val newOrder = order.copy(id = nextId++)
         list.add(newOrder)
         return newOrder

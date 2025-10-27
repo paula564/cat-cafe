@@ -151,7 +151,7 @@ class CafeModelTest {
         val model = CafeModel()
         val items = listOf("Coffee", "Chai", "Matcha")
 
-        model.populateDropdown(items)
+        model.retrieveDropdownData(items)
 
         assertEquals(3, items.size)
         assertEquals(listOf("Coffee", "Chai", "Matcha"), items)

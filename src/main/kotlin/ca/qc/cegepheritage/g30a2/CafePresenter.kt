@@ -11,9 +11,9 @@ class CafePresenter (private val model: CafeModel, private val view: CafeDisplay
         val drinkItems = Drink.entries.toList()
         view.renderQueue(model.orderQueue())
         view.updateCount(model.count())
-        view.food?.items = model.populateDropdown(foodItems)
+        view.food?.items = model.retrieveDropdownData(foodItems)
         view.food?.items?.addFirst(null)
-        view.drinks?.items = model.populateDropdown(drinkItems)
+        view.drinks?.items = model.retrieveDropdownData(drinkItems)
         view.drinks?.items?.addFirst(null)
         view.showNextInLine(model.nextInLine())
     }

@@ -51,9 +51,9 @@ class CafeModel (initialOrders: List<Order> = emptyList()) {
         return order
     }
 
-    fun <T> populateDropdown (items : List<T>) : ObservableList<T> {
-        return observableList(items.toList())
-    } //rename function
+    fun <T> retrieveDropdownData (items : List<T>) : ObservableList<T> {
+        return observableList(items)
+    }
 
     fun closeRegister() {
         list.clear()
@@ -63,7 +63,7 @@ class CafeModel (initialOrders: List<Order> = emptyList()) {
         return list.firstOrNull()
     }
 
-    fun orderQueue(): List<Order> = list.toList()
+    fun orderQueue(): List<Order> = list
 
     fun count(): Int = list.size
 }
